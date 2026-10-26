@@ -67,6 +67,15 @@ def extract_one(requirement: str) -> dict:
     # timeout 必须设。没有超时的网络请求是生产事故的常见来源
     resp = requests.post(url, headers=headers, json=body, timeout=30)
 
+    # 不同厂商对 response_format 的支持不一致。智谱部分模型、硅基流动的
+    # 开源模型会直接返回 400。这里做一次降级重试：去掉这个参数再发一次，
+    # 然后在提示词里已经有"只输出 JSON"的约束，多数情况仍然能拿到合法 JSON。
+    # 这就是 FDE 常做的事——同一份代码要跑在多家客户的模型上。
+    if resp.status_code == 400 and "response_format" in resp.text.lower():
+        print("    [降级] 当前模型不支持 response_format，去掉后重试")
+        body.pop("response_format", None)
+        resp = requests.post(url, headers=headers, json=body, timeout=30)
+
     # 这一行很关键：状态码不是 200 时，直接抛出带响应内容的错误
     # 否则你会拿到一个 KeyError，完全看不出真实原因
     if resp.status_code != 200:
