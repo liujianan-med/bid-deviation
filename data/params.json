@@ -1,0 +1,334 @@
+{
+  "source": "招标参数模版-皮秒治疗仪.xlsx",
+  "headers": [
+    "序号",
+    "科室提报技术需求-伟思PicoVL280",
+    "科英医疗-KL-M（P)",
+    "半岛医疗-PicoWell Pro",
+    "安德医疗-PS10"
+  ],
+  "sections": [
+    "3.技术参数和性能参数"
+  ],
+  "count": 31,
+  "stats": {
+    "star": 3,
+    "triangle": 6,
+    "quantifiable": 23,
+    "duplicate_id": 2
+  },
+  "items": [
+    {
+      "row": 5,
+      "item_id": "1.设备名称",
+      "mark": "★",
+      "requirement": "1. 国产超皮秒激光治疗仪",
+      "quantifiable": true,
+      "competitor_ky": "皮秒激光治疗仪",
+      "competitor_bd": "皮秒激光治疗仪",
+      "competitor_ad": "皮秒激光治疗仪"
+    },
+    {
+      "row": 6,
+      "item_id": "2.适应症",
+      "mark": "",
+      "requirement": "在医疗机构中使用，通过输出激光将色素击碎，1064nm激光用于祛除蓝色或黑色文身的治疗，532nm激光用于良性表皮色素增加性疾病的治疗",
+      "quantifiable": true,
+      "competitor_ky": "适用范围：通过输出激光将色素击碎，1064nm激光用于去除蓝色和黑色文身的治疗、532nm激光用于良性表皮色素增加性疾病的治疗。",
+      "competitor_bd": "适用范围：通过输出激光将色素击碎，1064nm激光用于去除蓝色和黑色文身的治疗、532nm激光用于良性表皮色素增加性疾病的治疗。",
+      "competitor_ad": "在医疗机构中使用，，1064nm激光用于祛除蓝色或黑色文身的治疗，532nm激光用于治疗面部雀斑。"
+    },
+    {
+      "row": 8,
+      "item_id": "3.1",
+      "mark": "▲",
+      "requirement": "操作手柄≥3，光斑直径调节旋钮设置在激光输出手柄上，便于动态调节光斑大小",
+      "quantifiable": true,
+      "competitor_ky": "治疗手具一柄: 光电旋转手具，具有光斑直径、能量密度调节与显示同步功能;",
+      "competitor_bd": "手动变焦手柄",
+      "competitor_ad": "手动变焦手柄"
+    },
+    {
+      "row": 9,
+      "item_id": "3.2",
+      "mark": "",
+      "requirement": "激光工作物质:掺钕钇铝石榴石激光器(Nd:YAG激光器)",
+      "quantifiable": false,
+      "competitor_ky": "激光工作物质: 掺钕钇铝石榴石激光器",
+      "competitor_bd": "激光工作物质: 掺钕钇铝石榴石激光器",
+      "competitor_ad": "激光工作物质: 掺钕钇铝石榴石激光器"
+    },
+    {
+      "row": 10,
+      "item_id": "3.3",
+      "mark": "",
+      "requirement": "激光波长：具有532nm或1064nm波长，允差±5nm",
+      "quantifiable": true,
+      "competitor_ky": "激光波长: 1064nm+5nm/532nm±5nm",
+      "competitor_bd": "至少具备两种激光波长：1064nm、532nm。",
+      "competitor_ad": "激光峰值波长：1064nm和532nm，允差为±5nm。"
+    },
+    {
+      "row": 11,
+      "item_id": "3.4",
+      "mark": "",
+      "requirement": "重复频率：1-10Hz，步进1Hz",
+      "quantifiable": true,
+      "competitor_ky": "重复频率: 1~10Hz",
+      "competitor_bd": "脉冲重复频率：单脉冲、1～10Hz，可调，步进1Hz。",
+      "competitor_ad": "激光脉冲重复频率：1Hz，2Hz，5Hz，10Hz四档可调，允差应不超过±20%。"
+    },
+    {
+      "row": 12,
+      "item_id": "3.5",
+      "mark": "▲",
+      "requirement": "光斑直径可调：2-10mm，误差≤0.2mm",
+      "quantifiable": true,
+      "competitor_ky": "光斑直径: 1064nm: 2~8mm(8mm为平行光输出) 532nm: 1.5~7mm(7mm为平行光输出)",
+      "competitor_bd": "治疗端面光斑直径：2～10mm，可调，步进1mm。",
+      "competitor_ad": "激光治疗面光斑尺寸：光斑直径2mm～10mm，步进1mm，允差应不超过±20%。"
+    },
+    {
+      "row": 13,
+      "item_id": "3.6",
+      "mark": "★",
+      "requirement": "峰值功率≧1.7GW（第三方检测报告）",
+      "quantifiable": true,
+      "competitor_ky": "峰值功率＝1.43GW",
+      "competitor_bd": "峰值功率＝1.6GW",
+      "competitor_ad": "峰值功率＝1.43GW"
+    },
+    {
+      "row": 14,
+      "item_id": "3.7",
+      "mark": "",
+      "requirement": "激光脉冲持续时间采用超短脉冲设计，脉冲脉宽≤250ps（第三方检测报告）",
+      "quantifiable": true,
+      "competitor_ky": "最小脉冲宽度: 350ps",
+      "competitor_bd": "脉冲宽度≤250ps（皮秒）。",
+      "competitor_ad": "脉冲宽度：450ps，允差应不超过±20%。"
+    },
+    {
+      "row": 15,
+      "item_id": "3.8",
+      "mark": "★",
+      "requirement": "最大能量密度： 16J/cm2",
+      "quantifiable": true,
+      "competitor_ky": "最大能量密度 ：15.91J/cm2",
+      "competitor_bd": "最大能量密度：12.72J/cm2",
+      "competitor_ad": "最大能量密度：12.72J/cm2"
+    },
+    {
+      "row": 16,
+      "item_id": "3.9",
+      "mark": "",
+      "requirement": "1064nm 常规能量单脉冲模式最大输出能量≥500mj",
+      "quantifiable": true,
+      "competitor_ky": "终端单脉冲最大 输出能量: 500mJ",
+      "competitor_bd": "最大脉冲激光输出能量≥400J。",
+      "competitor_ad": "1064nm 常规能量单脉冲模式最大输出能量500mj"
+    },
+    {
+      "row": 17,
+      "item_id": "3.1",
+      "mark": "",
+      "requirement": "控制系统：≥10.1 英寸",
+      "quantifiable": true,
+      "competitor_ky": "控制系统: 1)≥10.1英寸安卓屏",
+      "competitor_bd": "屏幕≥10.1英寸。",
+      "competitor_ad": "屏幕≥10.1英寸。",
+      "duplicate_id": true
+    },
+    {
+      "row": 18,
+      "item_id": "3.11",
+      "mark": "",
+      "requirement": "具有参数修正功能及升级接口，设备治疗参数存储记忆、故障语言显示、声音提示、主电源工作电压、出光次数计数、氙灯使用次数计数等功能；",
+      "quantifiable": false,
+      "competitor_ky": "2)具有参数修正功能及升级接口，设备治疗参数存储记忆、故障语 言显示、声音提示、主电源工作电压、出光次数计数、氙灯使用次 数计数等多种功能:",
+      "competitor_bd": "具备参数显示",
+      "competitor_ad": "具备参数显示功能"
+    },
+    {
+      "row": 19,
+      "item_id": "3.12",
+      "mark": "",
+      "requirement": "532nm激光治疗端面能量密度0.13～7.75J/cm2。",
+      "quantifiable": true,
+      "competitor_ky": "532nm激光治疗端面能量密度0.3～7.6J/cm2。",
+      "competitor_bd": "532nm激光治疗端面能量密度0.3～7.6J/cm2。",
+      "competitor_ad": "532nm波长下，激光治疗面能量密度范围为0.013～6.37 J/cm2，允差应不超过±20%。"
+    },
+    {
+      "row": 20,
+      "item_id": "3.13",
+      "mark": "",
+      "requirement": "1064nm激光治疗端面能量密度0.2～16J/cm2。",
+      "quantifiable": true,
+      "competitor_ky": "1064nm激光治疗端面能量密度0.12～12.5J/cm2。",
+      "competitor_bd": "1064nm激光治疗端面能量密度0.12～12.5J/cm2。",
+      "competitor_ad": "1064nm波长下，激光治疗面能量密度范围为0.025～12.74 J/cm2，允差应不超过±20%。"
+    },
+    {
+      "row": 21,
+      "item_id": "3.14",
+      "mark": "",
+      "requirement": "激光输出能量不稳定度≤±10%范围",
+      "quantifiable": true,
+      "competitor_ky": "脉冲宽度稳定度：应不超过20%",
+      "competitor_bd": "脉冲宽度稳定度：应不超过20%",
+      "competitor_ad": "激光终端输出能量不稳定度：应不超过±10%"
+    },
+    {
+      "row": 22,
+      "item_id": "3.15",
+      "mark": "",
+      "requirement": "激光输出复现性≥±10%范围",
+      "quantifiable": true,
+      "competitor_ky": "激光输出复现性≥±10%范围",
+      "competitor_bd": "激光输出复现性≥±10%范围",
+      "competitor_ad": "激光终端输出能量复现性：应不超过±10%"
+    },
+    {
+      "row": 23,
+      "item_id": "3.16",
+      "mark": "",
+      "requirement": "瞄准光输出功率<3.5 mW（第三方检测报告）",
+      "quantifiable": true,
+      "competitor_ky": "瞄准光 输出功率Pc：不大于5mW。",
+      "competitor_bd": "瞄准光 输出功率Pc：不大于5mW。",
+      "competitor_ad": "瞄准光 输出功率Pc：不大于5mW。"
+    },
+    {
+      "row": 24,
+      "item_id": "3.17",
+      "mark": "▲",
+      "requirement": "瞄准光系统：650nm，亮度可调",
+      "quantifiable": true,
+      "competitor_ky": "激光瞄准: 650nm 波长红色半导体指示光，亮度强弱可调",
+      "competitor_bd": "瞄准光：波长635nm，允差±10nm，亮度三档可调。",
+      "competitor_ad": "瞄准光 瞄准光峰值波长：650nm±10nm。"
+    },
+    {
+      "row": 25,
+      "item_id": "3.18",
+      "mark": "▲",
+      "requirement": "激光输出发散角<0.3 弧度",
+      "quantifiable": true,
+      "competitor_ky": "终端光束发散角: ＞20mrad。",
+      "competitor_bd": "终端光束发散角: ＞20mrad。",
+      "competitor_ad": "终端光束发散角: ＞20mrad。"
+    },
+    {
+      "row": 26,
+      "item_id": "3.19",
+      "mark": "",
+      "requirement": "脚踏开关：具有智能脚踏识别功能；脚踏开关防护等级≥IPX4（产品说明书）",
+      "quantifiable": true,
+      "competitor_ky": "脚踏开关具备防水功能",
+      "competitor_bd": "脚踏防水等级≥IPX8。",
+      "competitor_ad": "脚踏开关 应符合YY/T1057-2016 标准的要求。"
+    },
+    {
+      "row": 27,
+      "item_id": "3.2",
+      "mark": "",
+      "requirement": "传输方式：进口七关节重锤式导光臂",
+      "quantifiable": false,
+      "competitor_ky": "传输方式: 7关节平衡锤式导光臂",
+      "competitor_bd": "光输出方式：导光臂。",
+      "competitor_ad": "激光光束在光束传输系统中进行传输，不应出现光斑被遮挡的现象。 20. 导光臂应活动灵活，不应出现关节卡滞、无法转动等现象。",
+      "duplicate_id": true
+    },
+    {
+      "row": 28,
+      "item_id": "3.21",
+      "mark": "",
+      "requirement": "脉冲模式:单脉冲和重复脉冲双模式",
+      "quantifiable": false,
+      "competitor_ky": "输出方式：单脉冲、重复脉冲",
+      "competitor_bd": "输出方式：单脉冲、重复脉冲，内置脉冲计数功能。",
+      "competitor_ad": "激光输出方式：重复脉冲"
+    },
+    {
+      "row": 29,
+      "item_id": "3.22",
+      "mark": "",
+      "requirement": "具有参数修正功能及升级接口",
+      "quantifiable": false,
+      "competitor_ky": "具备升级接口",
+      "competitor_bd": "设备具备升级接口",
+      "competitor_ad": "具备相关升级接口"
+    },
+    {
+      "row": 30,
+      "item_id": "3.23",
+      "mark": "",
+      "requirement": "双重冷却、自动变频散热系统：封闭嵌入式内循环水制冷，外循环强风冷却，内置双过滤洁净装置；自动变频，调节风速、风量、水流速度（提供第三方检测报告或专利号证明）",
+      "quantifiable": false,
+      "competitor_ky": "冷却系统: 封闭内循环水制冷，外循环强风冷却，内置双过滤洁净装置",
+      "competitor_bd": "系统冷却方式：水、空气热交换器内部循环。",
+      "competitor_ad": "水冷却系统 22.仪器内部的水冷却系统应无渗漏现象。 23. 水冷却系统发生故障时，激光器应停止工作。"
+    },
+    {
+      "row": 31,
+      "item_id": "3.24",
+      "mark": "▲",
+      "requirement": "一体化成型激光器:防震、防潮、防回光、耐温变，提高激光器使用寿命(提供第三方检测报告、激光器实物图片或相关证明材料）",
+      "quantifiable": false,
+      "competitor_ky": "激光器:防震、防潮、防回光、耐温变",
+      "competitor_bd": "激光器:防震、防潮、防回光、耐温变",
+      "competitor_ad": "激光器:防震、防潮、防回光、耐温变"
+    },
+    {
+      "row": 32,
+      "item_id": "3.25",
+      "mark": "",
+      "requirement": "具有设备治疗参数存储记忆功能",
+      "quantifiable": false,
+      "competitor_ky": "具有设备治疗参数存储记忆功能",
+      "competitor_bd": "配有影像采集系统，用于术前术后辅助影像采集：",
+      "competitor_ad": "26. 具有设备治疗参数存储记忆功能"
+    },
+    {
+      "row": 33,
+      "item_id": "3.26",
+      "mark": "",
+      "requirement": "电源需求：200-240VAC，50/60Hz,≥10A,输入功率1500VA",
+      "quantifiable": true,
+      "competitor_ky": "电源 AC220V/50Hz，2.0kVA",
+      "competitor_bd": "电源 AC220V/50Hz，2.0kVA",
+      "competitor_ad": "电源 AC220V/50Hz，2.0kVA"
+    },
+    {
+      "row": 34,
+      "item_id": "3.27",
+      "mark": "▲",
+      "requirement": "设备重量≥130KG",
+      "quantifiable": true,
+      "competitor_ky": "设备重量：100KG",
+      "competitor_bd": "设备重量：80KG",
+      "competitor_ad": "设备重量:95KG"
+    },
+    {
+      "row": 35,
+      "item_id": "3.28",
+      "mark": "",
+      "requirement": "激光防护眼镜     产品应配置激光防护眼镜，需满足以下要求：激光防护眼镜上应标明防护的波长范围和光密度值。防护镜对激光输出波长的光密度：≥4；可见光透射比：≥30%",
+      "quantifiable": true,
+      "competitor_ky": "激光防护眼镜     产品应配置激光防护眼镜，需满足以下要求：激光防护眼镜上应标明防护的波长范围和光密度值。防护镜对激光输出波长的光密度：≥4；可见光透射比：≥30%",
+      "competitor_bd": "激光防护眼镜     产品应配置激光防护眼镜，需满足以下要求：激光防护眼镜上应标明防护的波长范围和光密度值。防护镜对激光输出波长的光密度：≥4；可见光透射比：≥30%",
+      "competitor_ad": "激光防护眼镜     产品应配置激光防护眼镜，需满足以下要求：激光防护眼镜上应标明防护的波长范围和光密度值。防护镜对激光输出波长的光密度：≥4；可见光透射比：≥30%"
+    },
+    {
+      "row": 36,
+      "item_id": "4.使用寿命",
+      "mark": "",
+      "requirement": "29. 产品寿命≥10年",
+      "quantifiable": true,
+      "competitor_ky": "使用期限: 10年",
+      "competitor_bd": "使用期限: 10年",
+      "competitor_ad": "使用期限: 8年"
+    }
+  ]
+}

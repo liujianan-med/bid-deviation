@@ -1,0 +1,25 @@
+# 密钥文件，绝对不能提交
+.env
+
+# 虚拟环境
+.venv/
+venv/
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 编辑器
+.vscode/
+.idea/
+
+# 输出产物
+output/
+*.log
+
+# 数据文件：真实标书可能涉及商业信息，先不传
+# （等确认可以公开之后再决定是否放行）
+data/*.xlsx
+data/*.docx
+data/*.pdf
