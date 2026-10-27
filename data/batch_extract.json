@@ -1,0 +1,405 @@
+[
+  {
+    "row": 5,
+    "item_id": "1.设备名称",
+    "mark": "★",
+    "source_text": "1. 国产超皮秒激光治疗仪",
+    "parsed": {
+      "param_name": "产地",
+      "operator": "none",
+      "value": "国产",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 6,
+    "item_id": "2.适应症",
+    "mark": " ",
+    "source_text": "在医疗机构中使用，通过输出激光将色素击碎，1064nm激光用于祛除蓝色或黑色文身的治疗，532nm激光用于良性表皮色素增加性疾病的治疗",
+    "parsed": {
+      "param_name": "激光波长及用途",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 8,
+    "item_id": "3.1",
+    "mark": "▲",
+    "source_text": "操作手柄≥3，光斑直径调节旋钮设置在激光输出手柄上，便于动态调节光斑大小",
+    "parsed": {
+      "param_name": "操作手柄",
+      "operator": ">=",
+      "value": "3",
+      "unit": "",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 9,
+    "item_id": "3.2",
+    "mark": " ",
+    "source_text": "激光工作物质:掺钕钇铝石榴石激光器(Nd:YAG激光器)",
+    "parsed": {
+      "param_name": "激光工作物质",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 10,
+    "item_id": "3.3",
+    "mark": " ",
+    "source_text": "激光波长：具有532nm或1064nm波长，允差±5nm",
+    "parsed": {
+      "param_name": "激光波长",
+      "operator": "=",
+      "value": "532或1064",
+      "unit": "nm",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 11,
+    "item_id": "3.4",
+    "mark": " ",
+    "source_text": "重复频率：1-10Hz，步进1Hz",
+    "parsed": {
+      "param_name": "重复频率",
+      "operator": "range",
+      "value": "1-10",
+      "unit": "Hz",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 12,
+    "item_id": "3.5",
+    "mark": "▲",
+    "source_text": "光斑直径可调：2-10mm，误差≤0.2mm",
+    "parsed": {
+      "param_name": "光斑直径",
+      "operator": "range",
+      "value": "2-10",
+      "unit": "mm",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 13,
+    "item_id": "3.6",
+    "mark": "★",
+    "source_text": "峰值功率≧1.7GW（第三方检测报告）",
+    "parsed": {
+      "param_name": "峰值功率",
+      "operator": ">=",
+      "value": "1.7",
+      "unit": "GW",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 14,
+    "item_id": "3.7",
+    "mark": " ",
+    "source_text": "激光脉冲持续时间采用超短脉冲设计，脉冲脉宽≤250ps（第三方检测报告）",
+    "parsed": {
+      "param_name": "脉冲脉宽",
+      "operator": "<=",
+      "value": "250",
+      "unit": "ps",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 15,
+    "item_id": "3.8",
+    "mark": "★",
+    "source_text": "最大能量密度： 16J/cm2",
+    "parsed": {
+      "param_name": "最大能量密度",
+      "operator": "=",
+      "value": "16",
+      "unit": "J/cm2",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 16,
+    "item_id": "3.9",
+    "mark": " ",
+    "source_text": "1064nm 常规能量单脉冲模式最大输出能量≥500mj",
+    "parsed": {
+      "param_name": "常规能量单脉冲模式最大输出能量",
+      "operator": ">=",
+      "value": "500",
+      "unit": "mj",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 17,
+    "item_id": "3.1",
+    "mark": " ",
+    "source_text": "控制系统：≥10.1 英寸",
+    "parsed": {
+      "param_name": "控制系统",
+      "operator": ">=",
+      "value": "10.1",
+      "unit": "英寸",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 18,
+    "item_id": "3.11",
+    "mark": " ",
+    "source_text": "具有参数修正功能及升级接口，设备治疗参数存储记忆、故障语言显示、声音提示、主电源工作电压、出光次数计数、氙灯使用次数计数等功能；",
+    "parsed": {
+      "param_name": "功能配置",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 19,
+    "item_id": "3.12",
+    "mark": " ",
+    "source_text": "532nm激光治疗端面能量密度0.13～7.75J/cm2。",
+    "parsed": {
+      "param_name": "532nm激光治疗端面能量密度",
+      "operator": "range",
+      "value": "0.13-7.75",
+      "unit": "J/cm2",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 20,
+    "item_id": "3.13",
+    "mark": " ",
+    "source_text": "1064nm激光治疗端面能量密度0.2～16J/cm2。",
+    "parsed": {
+      "param_name": "1064nm激光治疗端面能量密度",
+      "operator": "range",
+      "value": "0.2-16",
+      "unit": "J/cm2",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 21,
+    "item_id": "3.14",
+    "mark": " ",
+    "source_text": "激光输出能量不稳定度≤±10%范围",
+    "parsed": {
+      "param_name": "激光输出能量不稳定度",
+      "operator": "<=",
+      "value": "±10",
+      "unit": "%",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 22,
+    "item_id": "3.15",
+    "mark": " ",
+    "source_text": "激光输出复现性≥±10%范围",
+    "parsed": {
+      "param_name": "激光输出复现性",
+      "operator": ">=",
+      "value": "±10",
+      "unit": "%",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 23,
+    "item_id": "3.16",
+    "mark": " ",
+    "source_text": "瞄准光输出功率<3.5 mW（第三方检测报告）",
+    "parsed": {
+      "param_name": "瞄准光输出功率",
+      "operator": "<",
+      "value": "3.5",
+      "unit": "mW",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 24,
+    "item_id": "3.17",
+    "mark": "▲",
+    "source_text": "瞄准光系统：650nm，亮度可调",
+    "parsed": {
+      "param_name": "瞄准光系统波长",
+      "operator": "=",
+      "value": "650",
+      "unit": "nm",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 25,
+    "item_id": "3.18",
+    "mark": "▲",
+    "source_text": "激光输出发散角<0.3 弧度",
+    "parsed": {
+      "param_name": "激光输出发散角",
+      "operator": "<",
+      "value": "0.3",
+      "unit": "弧度",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 26,
+    "item_id": "3.19",
+    "mark": " ",
+    "source_text": "脚踏开关：具有智能脚踏识别功能；脚踏开关防护等级≥IPX4（产品说明书）",
+    "parsed": {
+      "param_name": "脚踏开关防护等级",
+      "operator": ">=",
+      "value": "4",
+      "unit": "IPX",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 27,
+    "item_id": "3.2",
+    "mark": " ",
+    "source_text": "传输方式：进口七关节重锤式导光臂",
+    "parsed": {
+      "param_name": "传输方式",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 28,
+    "item_id": "3.21",
+    "mark": " ",
+    "source_text": "脉冲模式:单脉冲和重复脉冲双模式",
+    "parsed": {
+      "param_name": "脉冲模式",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 29,
+    "item_id": "3.22",
+    "mark": " ",
+    "source_text": "具有参数修正功能及升级接口",
+    "parsed": {
+      "param_name": "参数修正功能及升级接口",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 30,
+    "item_id": "3.23",
+    "mark": " ",
+    "source_text": "双重冷却、自动变频散热系统：封闭嵌入式内循环水制冷，外循环强风冷却，内置双过滤洁净装置；自动变频，调节风速、风量、水流速度（提供第三方检测报告或专利号证明）",
+    "parsed": {
+      "param_name": "冷却系统",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 31,
+    "item_id": "3.24",
+    "mark": "▲",
+    "source_text": "一体化成型激光器:防震、防潮、防回光、耐温变，提高激光器使用寿命(提供第三方检测报告、激光器实物图片或相关证明材料）",
+    "parsed": {
+      "param_name": "一体化成型激光器",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 32,
+    "item_id": "3.25",
+    "mark": " ",
+    "source_text": "具有设备治疗参数存储记忆功能",
+    "parsed": {
+      "param_name": "设备治疗参数存储记忆功能",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 33,
+    "item_id": "3.26",
+    "mark": " ",
+    "source_text": "电源需求：200-240VAC，50/60Hz,≥10A,输入功率1500VA",
+    "parsed": {
+      "param_name": "电源需求",
+      "operator": "range",
+      "value": "200-240",
+      "unit": "VAC",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 34,
+    "item_id": "3.27",
+    "mark": "▲",
+    "source_text": "设备重量≥130KG",
+    "parsed": {
+      "param_name": "设备重量",
+      "operator": ">=",
+      "value": "130",
+      "unit": "KG",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 35,
+    "item_id": "3.28",
+    "mark": " ",
+    "source_text": "激光防护眼镜     产品应配置激光防护眼镜，需满足以下要求：激光防护眼镜上应标明防护的波长范围和光密度值。防护镜对激光输出波长的光密度：≥4；可见光透射比：≥30%",
+    "parsed": {
+      "param_name": "光密度",
+      "operator": ">=",
+      "value": "4",
+      "unit": "",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 36,
+    "item_id": "4.使用寿命",
+    "mark": " ",
+    "source_text": "29. 产品寿命≥10年",
+    "parsed": {
+      "param_name": "产品寿命",
+      "operator": ">=",
+      "value": "10",
+      "unit": "年",
+      "is_measurable": true
+    }
+  }
+]

@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "source_text": "★峰值功率≧1.7GW（第三方检测报告）",
+    "parsed": {
+      "param_name": "峰值功率",
+      "operator": ">=",
+      "value": "1.7",
+      "unit": "GW",
+      "is_measurable": true
+    }
+  },
+  {
+    "source_text": "▲光斑直径可调：2-10mm，误差≤0.2mm",
+    "parsed": {
+      "param_name": "光斑直径",
+      "operator": "range",
+      "value": "2-10",
+      "unit": "mm",
+      "is_measurable": true
+    }
+  },
+  {
+    "source_text": "传输方式：进口七关节重锤式导光臂",
+    "parsed": {
+      "param_name": "传输方式",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  }
+]
