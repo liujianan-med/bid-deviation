@@ -20,10 +20,20 @@
 
 import json
 import os
+import sys
 
-BASE = os.path.join(os.path.dirname(__file__), "..", "data")
-PRED_FILE = os.path.join(BASE, "batch_extract.json")
-GOLD_FILE = os.path.join(BASE, "eval_gold.json")
+# 不带参数：评测皮秒批（默认）
+# 带参数  ：python 04_evaluate.py <模型输出json> <gold json> <报告输出json>
+if len(sys.argv) >= 4:
+    PRED_FILE = os.path.join(os.path.dirname(__file__), "..", sys.argv[1])
+    GOLD_FILE = os.path.join(os.path.dirname(__file__), "..", sys.argv[2])
+    REPORT_TAG = sys.argv[3]
+else:
+    BASE = os.path.join(os.path.dirname(__file__), "..", "data")
+    PRED_FILE = os.path.join(BASE, "batch_extract.json")
+    GOLD_FILE = os.path.join(BASE, "eval_gold.json")
+    REPORT_TAG = "eval_report.json"
+OUT_FILE = os.path.join(os.path.dirname(PRED_FILE), REPORT_TAG)
 
 
 def norm_op(op: str) -> str:
@@ -99,10 +109,10 @@ def main():
                      "accuracy": round(op_ok / op_total, 3)},
         "errors": errors,
     }
-    out = os.path.join(BASE, "eval_report.json")
+    out = OUT_FILE
     with open(out, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
-    print(f"\n报告已保存 -> data/eval_report.json")
+    print(f"\n报告已保存 -> {os.path.relpath(out)}")
 
 
 if __name__ == "__main__":

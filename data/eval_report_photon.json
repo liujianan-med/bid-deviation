@@ -1,0 +1,22 @@
+{
+  "sample_size": 18,
+  "is_measurable": {
+    "correct": 18,
+    "total": 18,
+    "accuracy": 1.0
+  },
+  "operator": {
+    "correct": 17,
+    "total": 18,
+    "accuracy": 0.944
+  },
+  "errors": [
+    {
+      "row": 17,
+      "item_id": "12",
+      "问题": "operator 判错：模型 '>='，应为 '<='",
+      "原文": "10",
+      "note": "仲裁：「最大支持10个」=上限10 -> <=。模型答 >= 方向反了（真错误），用户答 < 也不精确"
+    }
+  ]
+}

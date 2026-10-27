@@ -1,0 +1,23 @@
+{
+  "comment": "光子困难样本 gold。标注流程：用户盲标 -> 与模型输出比对 -> 5 处分歧逐条仲裁后定稿。仲裁原则：以招标真实意图为准，不以文字表面为准；标注内部矛盾（可量化=是但 operator=none）视为标注错误需修正；模型与人工都错的条目（行17）按语义正确值定 gold 并在评测中记模型错误。",
+  "labels": [
+    {"row": 5,  "item_id": "设备名称", "operator": "none", "is_measurable": false, "note": "结构描述"},
+    {"row": 6,  "item_id": "1", "operator": "none", "is_measurable": false, "note": "仲裁：功能确认而非数量门槛，采模型 none/否"},
+    {"row": 7,  "item_id": "2", "operator": "none", "is_measurable": false, "note": "注册适用范围描述"},
+    {"row": 8,  "item_id": "3", "operator": "none", "is_measurable": false, "note": "结构描述"},
+    {"row": 9,  "item_id": "4", "operator": ">=", "is_measurable": true, "note": "触摸屏≥15（单位缺失，值按 15 记）"},
+    {"row": 10, "item_id": "5", "operator": ">=", "is_measurable": true, "note": "手具数量≥2，主参数是数量"},
+    {"row": 11, "item_id": "6", "operator": "none", "is_measurable": false, "note": "功能描述"},
+    {"row": 12, "item_id": "7", "operator": "none", "is_measurable": false, "note": "功能描述"},
+    {"row": 13, "item_id": "8", "operator": ">=", "is_measurable": true, "note": "仲裁：「最多≥10」是病句，按招标意图取 >=（滤光片不少于10），采模型"},
+    {"row": 14, "item_id": "9", "operator": "range", "is_measurable": true, "note": "1~40J/cm2"},
+    {"row": 15, "item_id": "10", "operator": "range", "is_measurable": true, "note": "主参数脉宽2-20ms"},
+    {"row": 16, "item_id": "11", "operator": "range", "is_measurable": true, "note": "5-150ms"},
+    {"row": 17, "item_id": "12", "operator": "<=", "is_measurable": true, "note": "仲裁：「最大支持10个」=上限10 -> <=。模型答 >= 方向反了（真错误），用户答 < 也不精确"},
+    {"row": 18, "item_id": "13", "operator": "<=", "is_measurable": true, "note": "仲裁：「频率最大20Hz」=不超过20 -> <=，采模型；用户原标 none/是 内部矛盾，已修正"},
+    {"row": 19, "item_id": "14", "operator": "range", "is_measurable": true, "note": "-2—32℃"},
+    {"row": 20, "item_id": "15", "operator": "=", "is_measurable": true, "note": "仲裁：偏差为±10% 是可检验数值指标，按陈述值取 =，采模型；亦可作 <= 解读，note 存档"},
+    {"row": 21, "item_id": "16", "operator": "none", "is_measurable": false, "note": "功能描述"},
+    {"row": 22, "item_id": "17", "operator": "none", "is_measurable": false, "note": "方式选择"}
+  ]
+}
