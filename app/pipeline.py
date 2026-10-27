@@ -144,9 +144,13 @@ def run_pipeline(excel_path: str, out_docx_path: str, on_progress=None,
         raise RuntimeError("全部条目抽取失败（检查 API Key / 余额 / 网络）")
 
     # ---- 3. 三态判定 ----
+    # 品类由 device_keyword 解析（如「皮秒」「光子」），产品库与证据库都按品类加载
+    from product_db import load as load_product
+    prod = load_product(device_keyword)
+    product = prod["params"]
+    m07.load_evidence(prod["evidence_path"])
+    log(f"品类：{prod['name']}（产品参数 {len(product)} 项）")
     log("三态判定中…")
-    with open(m07.PRODUCT_FILE, encoding="utf-8") as f:
-        product = {p["key"]: p for p in json.load(f)["params"]}
     report = m06.run_compare(results, product)
     c = report["counts"]
     log(f"判定完成：响应 {c['响应']} / 正偏离 {c['正偏离']} / "

@@ -28,7 +28,7 @@ import re
 
 BASE = os.path.join(os.path.dirname(__file__), "..", "data")
 BATCH_FILE = os.path.join(BASE, "batch_extract.json")       # 模型抽取的招标要求
-PRODUCT_FILE = os.path.join(BASE, "picov_params.json")       # 产品参数库
+PRODUCT_FILE = os.path.join(BASE, "picov_params.json")       # 老路径，保留兼容；新加载走 product_db
 OUT_FILE = os.path.join(BASE, "deviation_report.json")
 
 
@@ -278,11 +278,22 @@ def run_compare(reqs: list, product: dict) -> dict:
 
 
 def main():
+    import sys
+
+    from product_db import load as load_product
+
+    spec = None
+    if "--product" in sys.argv:
+        i = sys.argv.index("--product")
+        spec = sys.argv[i + 1] if len(sys.argv) > i + 1 else None
+    prod = load_product(spec)
+    product = prod["params"]
+
     with open(BATCH_FILE, encoding="utf-8") as f:
         reqs = json.load(f)
-    with open(PRODUCT_FILE, encoding="utf-8") as f:
-        product = {p["key"]: p for p in json.load(f)["params"]}
 
+    print("=" * 78)
+    print(f"品类：{prod['name']}  产品参数 {len(product)} 项  （{prod['product_path']}）")
     print("=" * 78)
     print(f"{'行':>3} {'判定':<4} {'招标要求':<34} {'说明'}")
     print("=" * 78)

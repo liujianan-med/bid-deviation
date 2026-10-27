@@ -1,0 +1,77 @@
+{
+  "_说明": "品类注册表。新增品类只需在这里登记一行 + 放一个参数库 json，06/07/09 不改代码。status: ready=已定稿可投标 / draft=参数不全不许出正式表 / empty=待建。keywords 用于从招标文件里的设备名自动识别品类。",
+  "version": 1,
+  "default": "picov",
+  "products": {
+    "picov": {
+      "name": "PicoV 超皮秒",
+      "category": "皮秒激光治疗仪",
+      "models": ["PicoV L280", "PicoV L300"],
+      "keywords": ["皮秒", "超皮秒", "Nd:YAG", "Nd：YAG", "调Q激光"],
+      "file": "weisi_picov.json",
+      "evidence_file": "evidence/picov.json",
+      "status": "ready",
+      "note": "第四师医院项目已定稿验证；注册证号见证据库"
+    },
+    "photon": {
+      "name": "大师光 VVL3",
+      "category": "强脉冲光治疗仪",
+      "models": ["VVL3"],
+      "keywords": ["光子", "强脉冲光", "光子嫩肤", "IPL", "VVL", "宽谱光", "光子治疗仪"],
+      "file": "weisi_photon.json",
+      "evidence_file": "evidence/photon.json",
+      "status": "draft",
+      "note": "参数底稿在 data/params_photon.json（18 条），产品侧参数待从白皮书与检验报告 2024-GL-0350 补齐"
+    },
+    "maggraver": {
+      "name": "MagGraver 塑形脉冲炮",
+      "category": "射频减脂设备",
+      "models": ["MagGraver 1.0"],
+      "keywords": ["塑形", "脉冲炮", "减脂", "射频溶脂", "体雕"],
+      "file": "weisi_magraver.json",
+      "evidence_file": "evidence/magraver.json",
+      "status": "empty",
+      "note": "参数库待建：需产品彩页 + 注册证 + 检验报告"
+    },
+    "magbelle": {
+      "name": "MagBelle F280 私密磁",
+      "category": "盆底磁刺激仪",
+      "models": ["MagBelle F280"],
+      "keywords": ["私密磁", "盆底磁", "磁刺激", "私密"],
+      "file": "weisi_magbelle.json",
+      "evidence_file": "evidence/magbelle.json",
+      "status": "empty",
+      "note": "参数库待建"
+    },
+    "private_rf": {
+      "name": "私密射频机器人",
+      "category": "射频治疗仪",
+      "models": [],
+      "keywords": ["私密射频", "射频机器人", "阴道射频"],
+      "file": "weisi_private_rf.json",
+      "evidence_file": "evidence/private_rf.json",
+      "status": "empty",
+      "note": "参数库待建；与 magbelle 常同标出现，勿混用参数"
+    },
+    "cautery": {
+      "name": "高频电灼仪 C1N",
+      "category": "高频电灼治疗仪",
+      "models": ["C1N"],
+      "keywords": ["高频电灼", "电灼", "电离子"],
+      "file": "weisi_cautery.json",
+      "evidence_file": "evidence/cautery.json",
+      "status": "empty",
+      "note": "参数库待建"
+    },
+    "uv308": {
+      "name": "308nm 紫外光治疗仪",
+      "category": "窄谱紫外线治疗仪",
+      "models": [],
+      "keywords": ["308", "紫外光", "窄谱中波", "NB-UVB", "白癜风"],
+      "file": "weisi_uv308.json",
+      "evidence_file": "evidence/uv308.json",
+      "status": "empty",
+      "note": "参数库待建"
+    }
+  }
+}

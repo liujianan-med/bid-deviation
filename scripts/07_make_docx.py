@@ -38,10 +38,23 @@ GREEN = RGBColor(0x00, 0x70, 0x30)
 GRAY = RGBColor(0x60, 0x60, 0x60)
 
 # 证明材料索引库：精确到「文件 + 编号 + 页码 + 序号/条款」
-# 数据在 data/evidence_map.json 里维护，脚本只负责按参数名取用。
-with open(EVIDENCE_FILE, encoding="utf-8") as _f:
-    EVIDENCE_MAP = json.load(_f)
-EVIDENCE_ITEMS = EVIDENCE_MAP["items"]
+# 每个品类一份，放在 data/products/evidence/<key>.json。
+# 下面三个模块级变量在 load_evidence() 里重新绑定，多品类共用同一套排版代码。
+EVIDENCE_MAP = {}
+EVIDENCE_ITEMS = {}
+DOC_NO = {}
+
+
+def load_evidence(path=None):
+    """切换到指定品类的证明材料索引；返回实际使用的文件路径。"""
+    global EVIDENCE_MAP, EVIDENCE_ITEMS, DOC_NO
+    path = path or EVIDENCE_FILE
+    with open(path, encoding="utf-8") as f:
+        EVIDENCE_MAP = json.load(f)
+    EVIDENCE_ITEMS = EVIDENCE_MAP.get("items") or {}
+    DOC_NO = {k: v.get("no", "")
+              for k, v in (EVIDENCE_MAP.get("documents") or {}).items()}
+    return path
 
 
 def set_font(run, size=10.5, bold=False, color=None):
@@ -90,7 +103,7 @@ def response_text(item: dict, product: dict) -> str:
     return body or f"【待人工确认】{p.get('note','产品资料未披露')}——需查检测报告后填写"
 
 
-DOC_NO = {k: v.get("no", "") for k, v in EVIDENCE_MAP["documents"].items()}
+load_evidence()  # 默认加载皮秒证据库；换品类时由调用方再调一次
 
 
 def fmt_cite(e: dict) -> str:
@@ -282,14 +295,27 @@ def build_document(report: dict, product: dict, project: str = "", device: str =
 
 
 def main():
+    import sys
+
+    from product_db import load as load_product
+
+    spec = None
+    if "--product" in sys.argv:
+        i = sys.argv.index("--product")
+        spec = sys.argv[i + 1] if len(sys.argv) > i + 1 else None
+    prod = load_product(spec)
+    product = prod["params"]
+    load_evidence(prod["evidence_path"])
+
     with open(REPORT_FILE, encoding="utf-8") as f:
         report = json.load(f)
-    with open(PRODUCT_FILE, encoding="utf-8") as f:
-        product = {p["key"]: p for p in json.load(f)["params"]}
 
+    out_file = os.path.join(os.path.dirname(__file__), "..",
+                            f"{prod['name']}偏离表-自动生成-{date.today():%Y%m%d}.docx")
     doc = build_document(report, product)
-    doc.save(OUT_FILE)
-    print(f"已生成: {OUT_FILE}")
+    doc.save(out_file)
+    print(f"品类: {prod['name']}（{len(product)} 项参数）")
+    print(f"已生成: {out_file}")
     print(f"偏离表 {len(report['items'])} 条；存疑清单 "
           f"{sum(1 for it in report['items'] if it['verdict'] == '存疑')} 条")
     print("用 WPS/Word 打开即可编辑。【待人工确认】红色标记处必须处理后才能投标使用。")

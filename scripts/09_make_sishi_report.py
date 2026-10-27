@@ -40,7 +40,14 @@ VERDICT_KEYS = ("响应", "正偏离", "负偏离", "存疑")
 def main():
     tender = json.load(open(TENDER_FILE, encoding="utf-8"))
     decision = json.load(open(DECISION_FILE, encoding="utf-8"))
-    product = {p["key"]: p for p in json.load(open(PRODUCT_FILE, encoding="utf-8"))["params"]}
+
+    # 品类从核定文件的 device 字段自动解析（如「皮秒激光治疗仪」-> picov），
+    # 换项目/换品类只改 sishi_decisions.json，不改本脚本
+    from product_db import load as load_product
+    prod = load_product(decision.get("device") or tender.get("device"))
+    product = prod["params"]
+    m07.load_evidence(prod["evidence_path"])
+    print(f"品类：{prod['name']}（{len(product)} 项参数，证据库 {os.path.basename(prod['evidence_path'])}）")
 
     items = []
     counts = {k: 0 for k in VERDICT_KEYS}
@@ -70,7 +77,9 @@ def main():
         note="注：响应内容所列数据均取自第三方检验报告（2024-GL-0320）、产品使用说明书、"
              "配置清单与技术白皮书，索引列页码为原件印刷页码，可逐项核查。"
              "响应内容只写“满足/符合”而无具体数值的，视为未实质性满足（投标无效）。")
-    out = os.path.join(DESKTOP, f"第四师医院-皮秒技术偏离表-{date.today():%Y%m%d}.docx")
+    out = os.path.join(
+        DESKTOP,
+        f"{decision.get('out_name') or decision['device']}-技术偏离表-{date.today():%Y%m%d}.docx")
     try:
         doc.save(out)
     except PermissionError:
