@@ -71,7 +71,12 @@ def render_product(p: dict, name: str) -> str:
 
 
 def response_text(item: dict, product: dict) -> str:
-    """生成投标响应内容——红线：必须带具体数值"""
+    """生成投标响应内容——红线：必须带具体数值
+
+    若条目自带 response（人工逐条核定过的文案），直接用，不再走产品库渲染。
+    """
+    if item.get("response"):
+        return item["response"]
     name = item["param"]
     # 模型起的参数名要过别名映射才能查产品库
     p = product.get(ALIAS.get(name, name))
@@ -99,7 +104,9 @@ def fmt_cite(e: dict) -> str:
 
 
 def evidence_entries(item: dict) -> list:
-    """取该参数的全部出处；无出处返回空列表"""
+    """取该参数的全部出处；无出处返回空列表。条目自带 evidence 时优先用自带的。"""
+    if item.get("evidence"):
+        return item["evidence"]
     ev = EVIDENCE_ITEMS.get(item["param"])
     if ev is None or (isinstance(ev, dict) and ev.get("unavailable")):
         return []
@@ -108,7 +115,7 @@ def evidence_entries(item: dict) -> list:
 
 def evidence_text(item: dict) -> str:
     """索引列：精确到页码与序号，最多列两条（其余见附二明细）"""
-    ev = EVIDENCE_ITEMS.get(item["param"])
+    ev = item.get("evidence") or EVIDENCE_ITEMS.get(item["param"])
     if ev is None:
         return "【待建索引】该参数尚未在 evidence_map.json 中登记出处"
     if isinstance(ev, dict) and ev.get("unavailable"):
@@ -123,26 +130,31 @@ def evidence_text(item: dict) -> str:
     return text
 
 
-def build_document(report: dict, product: dict) -> Document:
+def build_document(report: dict, product: dict, project: str = "", device: str = "",
+                   note: str = "") -> Document:
     """核心函数：报告 dict + 产品参数库 -> Word 文档对象
 
-    供命令行 main() 和 API（步骤 5）共用——排版逻辑只写这一份。
-    调用方拿到 Document 后自行 doc.save(path)。
+    供命令行 main()、API（步骤 5）和单项目定制报告（09）共用——排版逻辑只写这一份。
+    project/device 有值时填入页头，为空则保留待填横线。
     """
     doc = Document()
 
     # ---- 页头（对齐真实偏离表）----
     h = doc.add_paragraph()
     set_font(h.add_run("九、技术响应偏离表"), size=16, bold=True)
-    for line in ["项目名称：", "项目编号/包号：", "投标人名称（公章）：",
+    for line in [f"项目名称：{project}" if project else "项目名称：",
+                 "项目编号/包号：", "投标人名称（公章）：",
                  f"日      期：{date.today():%Y年%m月%d日}"]:
         p = doc.add_paragraph()
         set_font(p.add_run(line), size=12)
+    if device:
+        p = doc.add_paragraph()
+        set_font(p.add_run(f"投标产品：{device}"), size=12)
 
-    note = doc.add_paragraph()
-    set_font(note.add_run("注：本表由工具自动生成，【待人工确认】处必须人工核实填写后才能提交。"
-                          "响应内容只写“满足/符合”而无具体数值的，视为未实质性满足（投标无效）。"),
-             size=9, color=RED)
+    note_p = doc.add_paragraph()
+    default_note = ("注：本表由工具自动生成，【待人工确认】处必须人工核实填写后才能提交。"
+                    "响应内容只写“满足/符合”而无具体数值的，视为未实质性满足（投标无效）。")
+    set_font(note_p.add_run(note or default_note), size=9, color=RED)
 
     # ---- 偏离表正文 ----
     table = doc.add_table(rows=1, cols=5)
@@ -227,14 +239,17 @@ def build_document(report: dict, product: dict) -> Document:
             row = t2.add_row().cells
             set_font(row[0].paragraphs[0].add_run(it["requirement"][:50]))
             set_font(row[1].paragraphs[0].add_run(it["reason"]))
-            entries = evidence_entries(it)
-            if entries:
-                goto = fmt_cite(entries[0]) + ("（措辞需与招标原文逐字核对）"
-                                               if "措辞" in it["reason"] or "字面" in it["reason"] else "")
-            elif isinstance(EVIDENCE_ITEMS.get(it["param"]), dict):
-                goto = "产品部出证：见附二该条「暂无出处」说明"
-            else:
-                goto = "产品部/说明书，索引库待建"
+            # 自定义建议去向优先（单项目核定时逐条写明的处理办法）
+            goto = it.get("advice")
+            if not goto:
+                entries = evidence_entries(it)
+                if entries:
+                    goto = fmt_cite(entries[0]) + ("（措辞需与招标原文逐字核对）"
+                                                   if "措辞" in it["reason"] or "字面" in it["reason"] else "")
+                elif isinstance(EVIDENCE_ITEMS.get(it["param"]), dict):
+                    goto = "产品部出证：见附二该条「暂无出处」说明"
+                else:
+                    goto = "产品部/说明书，索引库待建"
             set_font(row[2].paragraphs[0].add_run(goto))
             set_font(row[3].paragraphs[0].add_run(""), size=12)
 
