@@ -228,6 +228,10 @@ def build_document(report: dict, product: dict, project: str = "", device: str =
     set_font(h2.add_run("附：存疑条目清单（人工复核用，本页不随投标文件提交）"), size=13, bold=True, color=RED)
 
     pending = [it for it in report["items"] if it["verdict"] == "存疑"]
+    if not pending:
+        p_ok = doc.add_paragraph()
+        set_font(p_ok.add_run(f"本表 {len(report['items'])} 条均已完成逐条核对，无存疑条目。"),
+                 size=10)
     if pending:
         t2 = doc.add_table(rows=1, cols=4)
         t2.style = "Table Grid"
@@ -252,6 +256,27 @@ def build_document(report: dict, product: dict, project: str = "", device: str =
                     goto = "产品部/说明书，索引库待建"
             set_font(row[2].paragraphs[0].add_run(goto))
             set_font(row[3].paragraphs[0].add_run(""), size=12)
+
+    # ---- 投标前须落实事项（内部用；不影响主表判定，但缺件会被废标或质疑）----
+    caveats = report.get("caveats") or []
+    if caveats:
+        doc.add_paragraph()
+        h3 = doc.add_paragraph()
+        set_font(h3.add_run("附：投标前须落实事项（内部复核用，本页不随投标文件提交）"),
+                 size=13, bold=True, color=RED)
+        tc = doc.add_table(rows=1, cols=3)
+        tc.style = "Table Grid"
+        for i, htext in enumerate(["对应条款", "须落实事项", "责任方"]):
+            c = tc.rows[0].cells[i]
+            c.paragraphs[0].alignment = 1
+            set_font(c.paragraphs[0].add_run(htext), bold=True, size=9)
+        for cv in caveats:
+            row = tc.add_row().cells
+            set_font(row[0].paragraphs[0].add_run(cv.get("item", "")), size=9)
+            set_font(row[1].paragraphs[0].add_run(cv.get("note", "")), size=9)
+            set_font(row[2].paragraphs[0].add_run(cv.get("owner", "")), size=9)
+        for col, w in zip(tc.columns, [4.0, 10.4, 3.0]):
+            col.width = Cm(w)
 
     return doc
 

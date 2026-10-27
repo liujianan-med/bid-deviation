@@ -61,7 +61,8 @@ def main():
         })
 
     report = {"counts": counts, "items": items,
-              "source": tender["source"], "device": tender.get("device", "")}
+              "source": tender["source"], "device": tender.get("device", ""),
+              "caveats": decision.get("caveats", [])}
 
     doc = m07.build_document(
         report, product,
@@ -70,7 +71,17 @@ def main():
              "配置清单与技术白皮书，索引列页码为原件印刷页码，可逐项核查。"
              "响应内容只写“满足/符合”而无具体数值的，视为未实质性满足（投标无效）。")
     out = os.path.join(DESKTOP, f"第四师医院-皮秒技术偏离表-{date.today():%Y%m%d}.docx")
-    doc.save(out)
+    try:
+        doc.save(out)
+    except PermissionError:
+        # 目标文件正被 Word/WPS 打开（用户在看），改写版本号，避免覆盖失败
+        stem, ext = os.path.splitext(out)
+        n = 2
+        while os.path.exists(f"{stem}-v{n}{ext}"):
+            n += 1
+        out = f"{stem}-v{n}{ext}"
+        doc.save(out)
+        print(f"[提示] 原文件被占用（可能正在 Word 中打开），本次另存为 v{n}")
 
     print(f"已生成：{out}")
     print(f"共 {len(items)} 条：" + " | ".join(f"{k} {v}" for k, v in counts.items()))
