@@ -53,7 +53,7 @@ def _set_job(job_id: str, **kw):
         _jobs[job_id].update(kw)
 
 
-def _run_job(job_id: str, excel_path: str, out_path: str):
+def _run_job(job_id: str, excel_path: str, out_path: str, device_keyword: str = "皮秒"):
     """后台线程：跑流水线，把进度写回任务表"""
     def on_progress(msg: str):
         with _lock:
@@ -63,7 +63,8 @@ def _run_job(job_id: str, excel_path: str, out_path: str):
             if m:  # "[3/31] ..." -> 更新进度条
                 j["done"], j["total"] = int(m.group(1)), int(m.group(2))
     try:
-        result = pipeline.run_pipeline(excel_path, out_path, on_progress=on_progress)
+        result = pipeline.run_pipeline(excel_path, out_path, on_progress=on_progress,
+                                       device_keyword=device_keyword)
         with _lock:
             j = _jobs[job_id]
             j["status"] = "done"
@@ -92,11 +93,11 @@ def health():
 
 
 @app.post("/api/jobs")
-async def create_job(file: UploadFile = File(...)):
-    """上传招标参数 Excel，创建后台任务"""
+async def create_job(file: UploadFile = File(...), device_keyword: str = "皮秒"):
+    """上传招标参数 Excel 或整本招标文件 Word，创建后台任务"""
     name = os.path.basename(file.filename or "")
-    if not name.lower().endswith((".xlsx", ".xls")):
-        raise HTTPException(400, "只接受 .xlsx / .xls 文件")
+    if not name.lower().endswith((".xlsx", ".docx")):
+        raise HTTPException(400, "只接受 .xlsx（参数表模板）或 .docx（整本招标文件）")
 
     job_id = uuid4().hex[:12]
     excel_path = os.path.join(UPLOAD_DIR, f"{job_id}_{secrets.token_hex(4)}_{name}")
@@ -113,7 +114,8 @@ async def create_job(file: UploadFile = File(...)):
                          "created": time.strftime("%H:%M:%S"),
                          "filename": name, "error": None, "result": None, "docx": None}
 
-    threading.Thread(target=_run_job, args=(job_id, excel_path, out_path), daemon=True).start()
+    threading.Thread(target=_run_job, args=(job_id, excel_path, out_path, device_keyword),
+                     daemon=True).start()
     return {"job_id": job_id}
 
 

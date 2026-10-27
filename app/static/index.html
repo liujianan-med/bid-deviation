@@ -64,16 +64,17 @@
 <body>
 <div class="wrap">
   <h1>招标参数偏离表生成器</h1>
-  <div class="sub">上传招标参数 Excel（标准模板：第 3 行表头、第 5 行起数据）→ 自动抽取 → 三态判定 → 生成可编辑 Word 偏离表</div>
+  <div class="sub">丢一份文件进来 → 自动提炼参数 → 三态判定 → 生成可编辑 Word 偏离表。支持两种输入：整本招标文件 Word（自动定位皮秒小节）或标准参数表 Excel 模板。</div>
 
   <div class="card">
-    <h2>① 上传招标参数表</h2>
+    <h2>① 上传招标文件</h2>
     <div class="upload-row">
-      <input type="file" id="file" accept=".xlsx,.xls">
+      <input type="file" id="file" accept=".xlsx,.docx">
+      <input type="text" id="keyword" placeholder="设备关键词（默认：皮秒）" style="padding:8px;border:1px solid var(--line);border-radius:6px;font-size:13px;width:200px">
       <button id="btn-start" onclick="startJob()">开始生成</button>
       <button class="ghost" id="btn-download" onclick="downloadDocx()" style="display:none">下载 Word 偏离表</button>
     </div>
-    <div class="hint">演示文件：<code>data/招标参数模版-皮秒治疗仪.xlsx</code>。整份 31 条约需 1~2 分钟（逐条调大模型）。</div>
+    <div class="hint">整本招标文件 Word：自动找到「（X）皮秒激光治疗仪」小节并逐条解析；Excel 则按「第 3 行表头、第 5 行起数据」的标准模板读。整份 20~30 条约需 1~2 分钟（逐条调大模型）。</div>
     <div id="err" class="err"></div>
   </div>
 
@@ -117,6 +118,8 @@ async function startJob() {
 
   const fd = new FormData();
   fd.append('file', fileInput.files[0]);
+  const kw = document.getElementById('keyword').value.trim();
+  if (kw) fd.append('device_keyword', kw);
 
   const btn = document.getElementById('btn-start');
   btn.disabled = true; btn.textContent = '上传中…';

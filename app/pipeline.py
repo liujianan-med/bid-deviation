@@ -34,6 +34,7 @@ m01 = importlib.import_module("01_read_params")
 m02 = importlib.import_module("02_call_llm")
 m06 = importlib.import_module("06_compare")
 m07 = importlib.import_module("07_make_docx")
+m08 = importlib.import_module("08_parse_tender_docx")
 
 # 与 01 相同的模板结构约定；换新模板结构时这里要跟着改
 HEADER_ROW = m01.HEADER_ROW
@@ -100,14 +101,26 @@ def extract_with_retry(text: str, on_progress=None) -> dict:
     raise last_err
 
 
-def run_pipeline(excel_path: str, out_docx_path: str, on_progress=None) -> dict:
-    """完整流水线。返回 {report, docx_path, stats}；异常向上抛由 API 层捕获。"""
+def run_pipeline(excel_path: str, out_docx_path: str, on_progress=None,
+                 device_keyword: str = "皮秒") -> dict:
+    """完整流水线。返回 {report, docx_path}；异常向上抛由 API 层捕获。
+
+    输入两种都认：
+      .xlsx —— 标准参数表模板（01 的规则）
+      .docx —— 整本招标文件 Word，自动定位目标设备小节（08 的规则）
+    """
     log = on_progress or (lambda msg: None)
 
-    # ---- 1. 读参数表 ----
-    log("读取招标参数表…")
-    params = parse_excel(excel_path)
-    log(f"解析出 {params['count']} 条参数")
+    # ---- 1. 读参数 ----
+    lower = excel_path.lower()
+    if lower.endswith(".docx"):
+        log(f"识别为整本招标文件 Word，定位「{device_keyword}」设备小节…")
+        params = m08.parse_tender(excel_path, device_keyword)
+        log(f"设备小节「{params['device']}」切出 {params['count']} 条条款")
+    else:
+        log("读取招标参数表…")
+        params = parse_excel(excel_path)
+        log(f"解析出 {params['count']} 条参数")
 
     # ---- 2. 批量抽取（LLM，占全程 95% 时间）----
     results = []

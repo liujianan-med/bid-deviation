@@ -92,6 +92,44 @@ def parse_value(parsed: dict):
     return num(s), num(s)
 
 
+def _chunk_hit(w: str, pv: str) -> bool:
+    """整词命中之外，词内 ≥4 字的连续片段命中也算。
+    「掺钕钇铝石榴石激光器」的片段「掺钕钇铝石榴石」能命中产品描述
+    「Nd:YAG掺钕钇铝石榴石」——招标措辞和产品资料措辞几乎从来不会逐字一致。
+    """
+    if w in pv:
+        return True
+    L = len(w)
+    for size in range(L - 1, 3, -1):
+        for i in range(L - size + 1):
+            if w[i:i + size] in pv:
+                return True
+    return False
+
+
+# 中文数字 -> 阿拉伯数字（「七关节」「十英寸」这类产品描述里的量）
+_CN_DIGIT = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5,
+             "六": 6, "七": 7, "八": 8, "九": 9}
+
+
+def feature_number(text: str):
+    """从功能描述里提取首个数值（阿拉伯或简单中文数字），取不到返回 None"""
+    s = str(text or "")
+    m = re.search(r"\d+(?:\.\d+)?", s)
+    if m:
+        return float(m.group())
+    m = re.search(r"([一二三四五六七八九十]+)", s)
+    if m:
+        cn = m.group(1)
+        if cn == "十":
+            return 10.0
+        if "十" in cn:
+            a, _, b = cn.partition("十")
+            return float(_CN_DIGIT.get(a, 1) * 10 + _CN_DIGIT.get(b, 0))
+        return float(_CN_DIGIT.get(cn)) if len(cn) == 1 and cn in _CN_DIGIT else None
+    return None
+
+
 def compare(req: dict, prod: dict) -> tuple:
     """返回 (判定, 理由)。req 是招标要求的结构化结果，prod 是产品参数库条目"""
     op = req.get("operator")
@@ -99,9 +137,12 @@ def compare(req: dict, prod: dict) -> tuple:
 
     # 特殊类型分支放在最前：它们自己解析原始值，不依赖通用数值解析
     if prod["type"] == "wavelength":
-        # 模型对「532nm或1064nm」这类要求会输出 "532或1064"，拆开逐个验证
+        # 模型对「532nm或1064nm」这类要求会输出 "532或1064"，拆开逐个验证。
+        # 只认 ≥100 的数字当波长：「1064nm±5nm」里的允差 ±5 若不排除，
+        # 会被当成要求波长 5nm，整条误判负偏离（真实招标文件里发生过）。
         raw = str(req.get("value") or "") + str(req.get("unit") or "")
-        nums = [n for n in (num(x) for x in re.findall(r"[\d.]+", raw)) if n is not None]
+        nums = [n for n in (num(x) for x in re.findall(r"[\d.]+", raw))
+                if n is not None and n >= 100]
         if not nums:
             return ("存疑", "要求侧波长解析失败")
         missing = [n for n in nums if n not in prod["value"]]
@@ -117,7 +158,7 @@ def compare(req: dict, prod: dict) -> tuple:
             pv = str(prod.get("value", ""))
             tokens = [w for w in re.findall(r"[\u4e00-\u9fa5A-Za-z]{2,}", rv) if len(w) >= 2]
             # 双向包含：关键词命中产品描述，或整条产品描述是要求的子串
-            overlap = any(w in pv for w in tokens) or (pv in rv)
+            overlap = any(_chunk_hit(w, pv) for w in tokens) or (pv in rv)
             return ("响应", f"功能类：要求与产品「{pv[:20]}」要点吻合") if overlap \
                 else ("存疑", f"功能类需人工比对：要求「{rv[:20]}」 vs 产品「{pv[:20]}」")
         return ("存疑", "要求无数值，产品侧也无法直接比对")
@@ -125,6 +166,13 @@ def compare(req: dict, prod: dict) -> tuple:
     # ---- 要求有数值，产品没披露 ----
     if prod["type"] == "missing":
         return ("存疑", f"产品资料未披露该参数（{prod.get('note','')}）——需查检测报告或询问产品部")
+
+    # ---- 要求有数值，产品是功能描述：尝试从描述里抠出数值（「七关节」-> 7）----
+    if prod["type"] == "feature":
+        n = feature_number(prod.get("value"))
+        if n is None:
+            return ("存疑", f"要求带数值而产品侧是描述「{str(prod.get('value'))[:20]}」，需人工比对")
+        prod_min = prod_max = n
 
     # ---- 特殊类型：IPX 防护等级（IPX8 >= IPX4 按数字比）----
     if prod["type"] == "ipx":
@@ -135,11 +183,13 @@ def compare(req: dict, prod: dict) -> tuple:
             if prod["value"] > req_num else ("响应", f"产品 IPX{prod['value']} 满足要求 IPX{int(req_num)}")
 
     # ---- 常规数值/区间比较 ----
-    prod_min, prod_max = None, None
+    # feature 分支可能已从描述里抠出数值（prod_min/prod_max 已赋值），不能重置
     if prod["type"] in ("number", "ipx"):
         prod_min = prod_max = num(prod.get("value"))
     elif prod["type"] == "range":
         prod_min, prod_max = num(prod.get("min")), num(prod.get("max"))
+    elif prod["type"] != "feature":
+        prod_min, prod_max = None, None
     if prod_min is None:
         return ("存疑", "产品侧数值解析失败")
 
@@ -183,6 +233,12 @@ def compare(req: dict, prod: dict) -> tuple:
         same = prod_min == req_min and prod_max == req_max
         if same: return ("响应", f"产品区间 [{fmt(prod_min)},{fmt(prod_max)}] 与要求 [{fmt(req_min)},{fmt(req_max)}] 一致")
         if covers: return ("正偏离", f"产品区间 [{fmt(prod_min)},{fmt(prod_max)}] 覆盖要求 [{fmt(req_min)},{fmt(req_max)}]")
+        # 产品是单点承诺而要求写成区间时，别急着判负偏离：
+        # 上限承诺 ≤ 区间下限（脉宽≤248ps vs 要求350~500ps）本身就是优于要求。
+        if prod["type"] == "number" and prod.get("operator") == "<=" and prod_max <= req_min:
+            return ("正偏离", f"产品 {fmt(prod_max)}（上限承诺）优于要求区间 [{fmt(req_min)},{fmt(req_max)}]")
+        if prod["type"] == "number" and prod.get("operator") == ">=" and prod_min >= req_max:
+            return ("正偏离", f"产品 {fmt(prod_min)}（下限承诺）优于要求区间 [{fmt(req_min)},{fmt(req_max)}]")
         if prod_min >= req_min and prod_max <= req_max:
             return ("存疑", f"产品区间 [{fmt(prod_min)},{fmt(prod_max)}] 在要求范围内，是否够用需人工判断")
         return ("负偏离", f"产品区间 [{fmt(prod_min)},{fmt(prod_max)}] 未覆盖要求 [{fmt(req_min)},{fmt(req_max)}]")

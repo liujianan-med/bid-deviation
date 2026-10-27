@@ -21,7 +21,7 @@
     {"key": "瞄准光系统波长", "type": "number", "operator": "=", "value": 650, "unit": "nm", "source": "白皮书§14"},
     {"key": "脚踏开关防护等级", "type": "ipx", "value": 8, "source": "白皮书§22 IPX8"},
     {"key": "电源需求",    "type": "range", "min": 200, "max": 240, "unit": "VAC", "source": "白皮书§24"},
-    {"key": "设备重量",    "type": "number", "operator": ">=", "value": 130, "unit": "KG", "source": "需求对比表伟思列"},
+    {"key": "设备重量",    "type": "missing", "value": null, "note": "说明书3.1/3.2、检验报告、彩页均未载明整机重量；原130KG仅见于内部需求对比表，无对外证明力，须产品部出证明"},
     {"key": "产品寿命",    "type": "number", "operator": "=", "value": 10, "unit": "年", "source": "白皮书§25"},
     {"key": "传输方式",    "type": "feature", "value": "七关节平衡式导光臂", "source": "白皮书§10"},
     {"key": "脉冲模式",    "type": "feature", "value": "单脉冲和重复脉冲双模式", "source": "白皮书§8"},
@@ -32,10 +32,10 @@
     {"key": "冷却系统",    "type": "feature", "value": "封闭嵌入式内循环水制冷，外循环强风冷却，双重制冷系统，内置双过滤洁净装置", "source": "白皮书§15"},
     {"key": "激光防护眼镜", "type": "missing", "value": null, "note": "白皮书未披露防护眼镜参数，需查配置清单"},
     {"key": "一体化成型激光器", "type": "missing", "value": null, "note": "白皮书§3为一体化设计但未明确防震防潮防回光耐温变指标"},
-    {"key": "操作手柄",    "type": "missing", "value": null, "note": "白皮书未披露手具数量"},
-    {"key": "激光输出能量不稳定度", "type": "missing", "value": null, "note": "白皮书未披露，需第三方检测报告"},
-    {"key": "激光输出复现性", "type": "missing", "value": null, "note": "白皮书未披露，需第三方检测报告"},
-    {"key": "瞄准光输出功率", "type": "missing", "value": null, "note": "白皮书仅写650nm亮度可调，未给功率值"},
-    {"key": "激光输出发散角", "type": "missing", "value": null, "note": "白皮书未披露"}
+    {"key": "操作手柄",    "type": "number", "operator": ">=", "value": 3, "unit": "个", "source": "配置清单序号4（治疗手柄3个）；白皮书第11条（旋钮在输出手柄上）"},
+    {"key": "激光输出能量不稳定度", "type": "number", "operator": "<=", "value": 10, "unit": "%", "source": "检测报告2024-GL-0320 第4页 序号8（条款2.8）实测-4.6%~+3.5%"},
+    {"key": "激光输出复现性", "type": "number", "operator": "<=", "value": 10, "unit": "%", "source": "检测报告2024-GL-0320 第4页 序号9（条款2.9）实测-0.2%~+2.0%"},
+    {"key": "瞄准光输出功率", "type": "number", "operator": "<=", "value": 3, "unit": "mW", "source": "检测报告2024-GL-0320 第5页 序号17（条款2.17.2）"},
+    {"key": "激光输出发散角", "type": "number", "operator": "<=", "value": 150, "unit": "mrad", "source": "检测报告2024-GL-0320 第3页 序号3（条款2.3）实测30.4~116.3mrad"}
   ]
 }
