@@ -1,0 +1,236 @@
+[
+  {
+    "row": 5,
+    "item_id": "设备名称",
+    "mark": " ",
+    "source_text": "强脉冲光治疗仪器",
+    "parsed": {
+      "param_name": "强脉冲光治疗仪器",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 6,
+    "item_id": "1",
+    "mark": " ",
+    "source_text": "支持多脉冲模式独立调节（双/三脉冲可调）",
+    "parsed": {
+      "param_name": "多脉冲模式独立调节",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 7,
+    "item_id": "2",
+    "mark": " ",
+    "source_text": "通过注册明确公示可用于改善皮肤外观治疗及减少毛发的治疗。",
+    "parsed": {
+      "param_name": "适用范围",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 8,
+    "item_id": "3",
+    "mark": " ",
+    "source_text": "该强脉冲光治疗仪为单灯泵浦，通过发射平顶方波改善皮肤外观。",
+    "parsed": {
+      "param_name": "灯泵浦方式",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 9,
+    "item_id": "4",
+    "mark": " ",
+    "source_text": "触摸屏尺寸：≥15",
+    "parsed": {
+      "param_name": "触摸屏尺寸",
+      "operator": ">=",
+      "value": "15",
+      "unit": "",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 10,
+    "item_id": "5",
+    "mark": "★",
+    "source_text": "治疗手具具有滤光片自动识别和热插拔的功能，手具数量≥2",
+    "parsed": {
+      "param_name": "手具数量",
+      "operator": ">=",
+      "value": "2",
+      "unit": "",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 11,
+    "item_id": "6",
+    "mark": " ",
+    "source_text": "治疗手具上具有屏幕，可实时关注脉冲能量等信息",
+    "parsed": {
+      "param_name": "治疗手具屏幕",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 12,
+    "item_id": "7",
+    "mark": " ",
+    "source_text": "设备具有定点和滑动治疗模式。",
+    "parsed": {
+      "param_name": "治疗模式",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 13,
+    "item_id": "8",
+    "mark": "★",
+    "source_text": "最多具有≥10滤光片",
+    "parsed": {
+      "param_name": "滤光片数量",
+      "operator": ">=",
+      "value": "10",
+      "unit": "",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 14,
+    "item_id": "9",
+    "mark": " ",
+    "source_text": "脉冲能量密度范围：1J/cm2～40J/cm2",
+    "parsed": {
+      "param_name": "脉冲能量密度范围",
+      "operator": "range",
+      "value": "1-40",
+      "unit": "J/cm2",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 15,
+    "item_id": "10",
+    "mark": " ",
+    "source_text": "脉宽2-20ms；脉冲串宽度范围是：2ms-800ms；步进：1ms；",
+    "parsed": {
+      "param_name": "脉宽",
+      "operator": "range",
+      "value": "2-20",
+      "unit": "ms",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 16,
+    "item_id": "11",
+    "mark": " ",
+    "source_text": "子脉冲间隔的范围是：5ms-150ms；",
+    "parsed": {
+      "param_name": "子脉冲间隔",
+      "operator": "range",
+      "value": "5-150",
+      "unit": "ms",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 17,
+    "item_id": "12",
+    "mark": " ",
+    "source_text": "最大支持10个子脉冲，具有飞点模式，可将脉冲分为2~3次发射",
+    "parsed": {
+      "param_name": "子脉冲数量",
+      "operator": ">=",
+      "value": "10",
+      "unit": "",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 18,
+    "item_id": "13",
+    "mark": " ",
+    "source_text": "频率最大：20Hz。",
+    "parsed": {
+      "param_name": "频率",
+      "operator": "<=",
+      "value": "20",
+      "unit": "Hz",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 19,
+    "item_id": "14",
+    "mark": " ",
+    "source_text": "蓝宝石接触持续式冷却，冷却范围：-2—32℃",
+    "parsed": {
+      "param_name": "冷却范围",
+      "operator": "range",
+      "value": "-2—32",
+      "unit": "℃",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 20,
+    "item_id": "15",
+    "mark": " ",
+    "source_text": "具有设备自带的能量校准功能，操作者可自主进行校准；调整精度：偏差为±10%",
+    "parsed": {
+      "param_name": "调整精度",
+      "operator": "=",
+      "value": "±10",
+      "unit": "%",
+      "is_measurable": true
+    }
+  },
+  {
+    "row": 21,
+    "item_id": "16",
+    "mark": " ",
+    "source_text": "设备具有自定义方案保存，故障提示，密码设置的功能",
+    "parsed": {
+      "param_name": "设备功能",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  },
+  {
+    "row": 22,
+    "item_id": "17",
+    "mark": " ",
+    "source_text": "能量输出方式：手具和脚踏两种可选",
+    "parsed": {
+      "param_name": "能量输出方式",
+      "operator": "none",
+      "value": "",
+      "unit": "",
+      "is_measurable": false
+    }
+  }
+]

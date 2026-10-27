@@ -14,6 +14,7 @@
 
 import json
 import os
+import sys
 import time
 
 from dotenv import load_dotenv
@@ -25,8 +26,17 @@ extract_one = m02.extract_one
 
 load_dotenv()
 
-PARAMS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "params.json")
-OUT_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "batch_extract.json")
+# 不带参数：跑皮秒 31 条（默认行为，和之前完全一样）
+# 带参数  ：python 03_batch_extract.py <输入json> <输出json>
+#          例：python 03_batch_extract.py data/params_photon.json data/batch_extract_photon.json
+if len(sys.argv) >= 3:
+    PARAMS_FILE = os.path.join(os.path.dirname(__file__), "..", sys.argv[1])
+    OUT_FILE = os.path.join(os.path.dirname(__file__), "..", sys.argv[2])
+    TAG = "[光子]"
+else:
+    PARAMS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "params.json")
+    OUT_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "batch_extract.json")
+    TAG = ""
 
 SLEEP_BETWEEN = 0.5   # 每条之间停 0.5 秒，避免触发限速
 MAX_RETRY = 3         # 单条最多重试 3 次
@@ -61,7 +71,7 @@ def main():
         params = json.load(f)
 
     items = params["items"]
-    print(f"共 {len(items)} 条参数，接口 {os.getenv('LLM_API_BASE')}  模型 {os.getenv('LLM_MODEL')}")
+    print(f"{TAG}共 {len(items)} 条参数，接口 {os.getenv('LLM_API_BASE')}  模型 {os.getenv('LLM_MODEL')}")
     print("=" * 72)
 
     results = []

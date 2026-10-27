@@ -1,0 +1,124 @@
+{
+  "source": "招标参数模版-光子治疗仪.xlsx",
+  "headers": [
+    "序号",
+    "科室提报技术需求",
+    "科英",
+    "奇致",
+    "金达威"
+  ],
+  "count": 18,
+  "stats": {
+    "star": 2
+  },
+  "items": [
+    {
+      "row": 5,
+      "item_id": "设备名称",
+      "mark": null,
+      "requirement": "强脉冲光治疗仪器"
+    },
+    {
+      "row": 6,
+      "item_id": "1",
+      "mark": null,
+      "requirement": "支持多脉冲模式独立调节（双/三脉冲可调）"
+    },
+    {
+      "row": 7,
+      "item_id": "2",
+      "mark": null,
+      "requirement": "通过注册明确公示可用于改善皮肤外观治疗及减少毛发的治疗。"
+    },
+    {
+      "row": 8,
+      "item_id": "3",
+      "mark": null,
+      "requirement": "该强脉冲光治疗仪为单灯泵浦，通过发射平顶方波改善皮肤外观。"
+    },
+    {
+      "row": 9,
+      "item_id": "4",
+      "mark": null,
+      "requirement": "触摸屏尺寸：≥15"
+    },
+    {
+      "row": 10,
+      "item_id": "5",
+      "mark": "★",
+      "requirement": "治疗手具具有滤光片自动识别和热插拔的功能，手具数量≥2"
+    },
+    {
+      "row": 11,
+      "item_id": "6",
+      "mark": null,
+      "requirement": "治疗手具上具有屏幕，可实时关注脉冲能量等信息"
+    },
+    {
+      "row": 12,
+      "item_id": "7",
+      "mark": null,
+      "requirement": "设备具有定点和滑动治疗模式。"
+    },
+    {
+      "row": 13,
+      "item_id": "8",
+      "mark": "★",
+      "requirement": "最多具有≥10滤光片"
+    },
+    {
+      "row": 14,
+      "item_id": "9",
+      "mark": null,
+      "requirement": "脉冲能量密度范围：1J/cm2～40J/cm2"
+    },
+    {
+      "row": 15,
+      "item_id": "10",
+      "mark": null,
+      "requirement": "脉宽2-20ms；脉冲串宽度范围是：2ms-800ms；步进：1ms；"
+    },
+    {
+      "row": 16,
+      "item_id": "11",
+      "mark": null,
+      "requirement": "子脉冲间隔的范围是：5ms-150ms；"
+    },
+    {
+      "row": 17,
+      "item_id": "12",
+      "mark": null,
+      "requirement": "最大支持10个子脉冲，具有飞点模式，可将脉冲分为2~3次发射"
+    },
+    {
+      "row": 18,
+      "item_id": "13",
+      "mark": null,
+      "requirement": "频率最大：20Hz。"
+    },
+    {
+      "row": 19,
+      "item_id": "14",
+      "mark": null,
+      "requirement": "蓝宝石接触持续式冷却，冷却范围：-2—32℃"
+    },
+    {
+      "row": 20,
+      "item_id": "15",
+      "mark": null,
+      "requirement": "具有设备自带的能量校准功能，操作者可自主进行校准；调整精度：偏差为±10%"
+    },
+    {
+      "row": 21,
+      "item_id": "16",
+      "mark": null,
+      "requirement": "设备具有自定义方案保存，故障提示，密码设置的功能"
+    },
+    {
+      "row": 22,
+      "item_id": "17",
+      "mark": null,
+      "requirement": "能量输出方式：手具和脚踏两种可选"
+    }
+  ]
+}
