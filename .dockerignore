@@ -1,0 +1,16 @@
+# 永远不进镜像的东西
+.env
+.git
+.venv
+__pycache__
+*.pyc
+data/*.xlsx
+data/*.xls
+data/*.docx
+data/*.pdf
+data/*.png
+data/uploads/
+data/report_pages/
+output/
+*.log
+*.md

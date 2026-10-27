@@ -23,3 +23,5 @@ output/
 data/*.xlsx
 data/*.docx
 data/*.pdf
+data/uploads/
+data/api_test_download.docx

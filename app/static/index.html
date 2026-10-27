@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>招标参数偏离表生成器</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --ink: #24292f; --sub: #57606a;
+    --line: #d8dee4; --brand: #1a5fb4; --green: #1a7f37; --red: #c01c28;
+    --amber: #9a6700;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: var(--bg); color: var(--ink); padding: 24px;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .sub { color: var(--sub); font-size: 13px; margin-bottom: 20px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 20px; margin-bottom: 16px;
+  }
+  .card h2 { font-size: 15px; margin-bottom: 12px; }
+  .upload-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  input[type=file] { font-size: 13px; }
+  button {
+    background: var(--brand); color: #fff; border: 0; border-radius: 6px;
+    padding: 9px 22px; font-size: 14px; cursor: pointer;
+  }
+  button:disabled { background: #9db8d8; cursor: not-allowed; }
+  button.ghost { background: #fff; color: var(--brand); border: 1px solid var(--brand); }
+  .hint { font-size: 12px; color: var(--sub); margin-top: 8px; }
+  #bar { height: 8px; background: #e7ebf0; border-radius: 4px; overflow: hidden; margin: 10px 0 6px; }
+  #bar-fill { height: 100%; width: 0; background: var(--brand); transition: width .4s; }
+  #status-line { font-size: 13px; color: var(--sub); }
+  #log {
+    font-family: Consolas, monospace; font-size: 12px; background: #0d1117;
+    color: #c9d1d9; border-radius: 8px; padding: 12px; height: 180px;
+    overflow-y: auto; margin-top: 12px; display: none; white-space: pre-wrap;
+  }
+  .counts { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .count-card {
+    flex: 1; min-width: 110px; text-align: center; padding: 12px 6px;
+    border-radius: 8px; border: 1px solid var(--line);
+  }
+  .count-card .n { font-size: 26px; font-weight: 700; }
+  .count-card .l { font-size: 12px; color: var(--sub); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; vertical-align: top; }
+  th { background: #f0f2f5; }
+  .v-响应 { color: var(--green); }
+  .v-正偏离 { color: var(--green); font-weight: 700; }
+  .v-负偏离 { color: var(--red); font-weight: 700; }
+  .v-存疑 { color: var(--amber); font-weight: 700; }
+  #result, #download-row, #failed-box { display: none; }
+  #download-row { text-align: center; }
+  .err { color: var(--red); font-size: 13px; margin-top: 8px; }
+  .mark-star { color: var(--red); font-weight: 700; }
+  .mark-tri { color: var(--amber); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>招标参数偏离表生成器</h1>
+  <div class="sub">上传招标参数 Excel（标准模板：第 3 行表头、第 5 行起数据）→ 自动抽取 → 三态判定 → 生成可编辑 Word 偏离表</div>
+
+  <div class="card">
+    <h2>① 上传招标参数表</h2>
+    <div class="upload-row">
+      <input type="file" id="file" accept=".xlsx,.xls">
+      <button id="btn-start" onclick="startJob()">开始生成</button>
+      <button class="ghost" id="btn-download" onclick="downloadDocx()" style="display:none">下载 Word 偏离表</button>
+    </div>
+    <div class="hint">演示文件：<code>data/招标参数模版-皮秒治疗仪.xlsx</code>。整份 31 条约需 1~2 分钟（逐条调大模型）。</div>
+    <div id="err" class="err"></div>
+  </div>
+
+  <div class="card" id="progress-card" style="display:none">
+    <h2>② 进度</h2>
+    <div id="bar"><div id="bar-fill"></div></div>
+    <div id="status-line">准备中…</div>
+    <div id="log"></div>
+  </div>
+
+  <div class="card" id="result">
+    <h2>③ 判定结果</h2>
+    <div class="counts">
+      <div class="count-card"><div class="n" id="c-resp">0</div><div class="l">响应</div></div>
+      <div class="count-card"><div class="n" id="c-pos" style="color:var(--green)">0</div><div class="l">正偏离</div></div>
+      <div class="count-card"><div class="n" id="c-neg" style="color:var(--red)">0</div><div class="l">负偏离</div></div>
+      <div class="count-card"><div class="n" id="c-pend" style="color:var(--amber)">0</div><div class="l">存疑（需人工）</div></div>
+    </div>
+    <div id="failed-box" class="err"></div>
+    <div style="max-height:420px; overflow:auto">
+      <table>
+        <thead><tr>
+          <th style="width:34px">序号</th><th style="width:60px">编号</th>
+          <th style="width:38%">招标要求</th><th style="width:70px">判定</th><th>判定说明</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="hint" style="margin-top:10px">Word 文件里的「证明资料及索引」「投标响应内容」两列此处未展示——以下载的文档为准。</div>
+  </div>
+</div>
+
+<script>
+let jobId = null, timer = null;
+
+async function startJob() {
+  const fileInput = document.getElementById('file');
+  const errBox = document.getElementById('err');
+  errBox.textContent = '';
+  if (!fileInput.files.length) { errBox.textContent = '请先选择 Excel 文件'; return; }
+
+  const fd = new FormData();
+  fd.append('file', fileInput.files[0]);
+
+  const btn = document.getElementById('btn-start');
+  btn.disabled = true; btn.textContent = '上传中…';
+  try {
+    const res = await fetch('/api/jobs', { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || '上传失败');
+    jobId = data.job_id;
+    document.getElementById('progress-card').style.display = '';
+    document.getElementById('log').style.display = '';
+    document.getElementById('log').textContent = '';
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('btn-download').style.display = 'none';
+    btn.textContent = '生成中…';
+    timer = setInterval(poll, 1200);
+  } catch (e) {
+    errBox.textContent = '出错：' + e.message;
+    btn.disabled = false; btn.textContent = '开始生成';
+  }
+}
+
+async function poll() {
+  if (!jobId) return;
+  try {
+    const res = await fetch('/api/jobs/' + jobId);
+    if (!res.ok) return;
+    const j = await res.json();
+
+    const pct = j.total > 0 ? Math.round(j.done / j.total * 100) : 0;
+    document.getElementById('bar-fill').style.width = pct + '%';
+    const stage = { running: '进行中', done: '已完成', error: '出错' }[j.status] || j.status;
+    document.getElementById('status-line').textContent =
+      `${stage} · ${j.done}/${j.total || '?'} 条 · 任务号 ${jobId}`;
+
+    const logEl = document.getElementById('log');
+    logEl.textContent = j.log.map(l => `[${l.t}] ${l.msg}`).join('\n');
+    logEl.scrollTop = logEl.scrollHeight;
+
+    if (j.status === 'done') {
+      clearInterval(timer);
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-start').textContent = '开始生成';
+      document.getElementById('btn-download').style.display = '';
+      renderResult(j.result);
+    } else if (j.status === 'error') {
+      clearInterval(timer);
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-start').textContent = '开始生成';
+      document.getElementById('err').textContent = '生成失败：' + j.error;
+    }
+  } catch (e) { /* 网络抖动，下轮再试 */ }
+}
+
+function renderResult(r) {
+  document.getElementById('result').style.display = '';
+  document.getElementById('c-resp').textContent = r.counts['响应'] || 0;
+  document.getElementById('c-pos').textContent = r.counts['正偏离'] || 0;
+  document.getElementById('c-neg').textContent = r.counts['负偏离'] || 0;
+  document.getElementById('c-pend').textContent = r.counts['存疑'] || 0;
+
+  const fb = document.getElementById('failed-box');
+  if (r.failed && r.failed.length) {
+    fb.style.display = '';
+    fb.textContent = '注意：有 ' + r.failed.length + ' 条抽取失败未参与判定（' +
+      r.failed.map(f => '行' + f.row).join('、') + '），Word 中不含这些行，需人工补查。';
+  } else { fb.style.display = 'none'; }
+
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  r.items.forEach((it, i) => {
+    const mark = it.mark === '★' ? '<span class="mark-star">★</span>' :
+                 it.mark === '▲' ? '<span class="mark-tri">▲</span>' : '';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${i + 1}</td><td>${mark}${it.item_id || ''}</td>` +
+      `<td>${esc(it.requirement)}</td>` +
+      `<td class="v-${it.verdict}">${it.verdict}</td><td>${esc(it.reason)}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function downloadDocx() {
+  if (jobId) window.open('/api/jobs/' + jobId + '/docx');
+}
+</script>
+</body>
+</html>
