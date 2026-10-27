@@ -1,0 +1,41 @@
+{
+  "comment": "伟思 PicoV 产品参数库（判定基准）。来源：PDF/皮秒激光治疗仪PicoV--技术白皮书  新.pdf（封面型号 PicoVL200）+ Desktop/Excel/招标参数模版-皮秒治疗仪.xlsx 伟思列。生产环境中这个文件应由产品部维护并经注册证核对。",
+  "model": "PicoV 系列",
+  "source_files": [
+    "皮秒激光治疗仪PicoV--技术白皮书  新.pdf",
+    "招标参数模版-皮秒治疗仪.xlsx（需求对比表·伟思列）"
+  ],
+  "params": [
+    {"key": "产地",       "type": "feature", "value": "国产",              "source": "白皮书标题"},
+    {"key": "激光工作物质", "type": "feature", "value": "Nd:YAG掺钕钇铝石榴石", "source": "白皮书§1"},
+    {"key": "激光波长",    "type": "wavelength", "value": [532, 1064], "unit": "nm", "tolerance": 5, "source": "白皮书§2"},
+    {"key": "最小脉冲宽度", "type": "number", "operator": "<=", "value": 248, "unit": "ps", "source": "白皮书§4"},
+    {"key": "重复频率",    "type": "range", "min": 1, "max": 10, "unit": "Hz", "source": "白皮书§5"},
+    {"key": "光斑直径",    "type": "range", "min": 2, "max": 10, "unit": "mm", "source": "白皮书§6"},
+    {"key": "峰值功率",    "type": "number", "operator": "=", "value": 2.0, "unit": "GW", "note": "1064nm", "source": "白皮书§7"},
+    {"key": "最大能量密度", "type": "number", "operator": "=", "value": 16, "unit": "J/cm2", "source": "需求对比表伟思列"},
+    {"key": "常规能量单脉冲模式最大输出能量", "type": "number", "operator": ">=", "value": 500, "unit": "mj", "source": "白皮书§9"},
+    {"key": "532nm激光治疗端面能量密度", "type": "range", "min": 0.13, "max": 7.75, "unit": "J/cm2", "source": "需求对比表伟思列"},
+    {"key": "1064nm激光治疗端面能量密度", "type": "range", "min": 0.2, "max": 16, "unit": "J/cm2", "source": "需求对比表伟思列"},
+    {"key": "控制系统",    "type": "number", "operator": "=", "value": 10.1, "unit": "英寸", "source": "白皮书§20"},
+    {"key": "瞄准光系统波长", "type": "number", "operator": "=", "value": 650, "unit": "nm", "source": "白皮书§14"},
+    {"key": "脚踏开关防护等级", "type": "ipx", "value": 8, "source": "白皮书§22 IPX8"},
+    {"key": "电源需求",    "type": "range", "min": 200, "max": 240, "unit": "VAC", "source": "白皮书§24"},
+    {"key": "设备重量",    "type": "number", "operator": ">=", "value": 130, "unit": "KG", "source": "需求对比表伟思列"},
+    {"key": "产品寿命",    "type": "number", "operator": "=", "value": 10, "unit": "年", "source": "白皮书§25"},
+    {"key": "传输方式",    "type": "feature", "value": "七关节平衡式导光臂", "source": "白皮书§10"},
+    {"key": "脉冲模式",    "type": "feature", "value": "单脉冲和重复脉冲双模式", "source": "白皮书§8"},
+    {"key": "参数修正功能及升级接口", "type": "feature", "value": "具有参数修正功能及升级接口", "source": "白皮书§21"},
+    {"key": "设备治疗参数存储记忆功能", "type": "feature", "value": "设备治疗参数存储记忆功能", "source": "白皮书§21"},
+    {"key": "功能配置",    "type": "feature", "value": "参数修正功能、治疗参数存储记忆、故障语言显示、声音提示、出光次数计数、氙灯使用次数计数", "source": "白皮书§21"},
+    {"key": "激光波长及用途", "type": "feature", "value": "1064nm祛除蓝色黑色文身，532nm治疗表皮色素性疾病", "source": "白皮书前言"},
+    {"key": "冷却系统",    "type": "feature", "value": "封闭嵌入式内循环水制冷，外循环强风冷却，双重制冷系统，内置双过滤洁净装置", "source": "白皮书§15"},
+    {"key": "激光防护眼镜", "type": "missing", "value": null, "note": "白皮书未披露防护眼镜参数，需查配置清单"},
+    {"key": "一体化成型激光器", "type": "missing", "value": null, "note": "白皮书§3为一体化设计但未明确防震防潮防回光耐温变指标"},
+    {"key": "操作手柄",    "type": "missing", "value": null, "note": "白皮书未披露手具数量"},
+    {"key": "激光输出能量不稳定度", "type": "missing", "value": null, "note": "白皮书未披露，需第三方检测报告"},
+    {"key": "激光输出复现性", "type": "missing", "value": null, "note": "白皮书未披露，需第三方检测报告"},
+    {"key": "瞄准光输出功率", "type": "missing", "value": null, "note": "白皮书仅写650nm亮度可调，未给功率值"},
+    {"key": "激光输出发散角", "type": "missing", "value": null, "note": "白皮书未披露"}
+  ]
+}
