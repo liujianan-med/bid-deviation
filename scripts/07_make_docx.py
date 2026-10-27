@@ -24,6 +24,8 @@ from docx import Document
 from docx.shared import Pt, RGBColor, Cm
 from docx.oxml.ns import qn
 
+from param_alias import ALIAS
+
 BASE = os.path.join(os.path.dirname(__file__), "..", "data")
 REPORT_FILE = os.path.join(BASE, "deviation_report.json")
 PRODUCT_FILE = os.path.join(BASE, "picov_params.json")
@@ -71,7 +73,8 @@ def render_product(p: dict, name: str) -> str:
 def response_text(item: dict, product: dict) -> str:
     """生成投标响应内容——红线：必须带具体数值"""
     name = item["param"]
-    p = product.get(name)
+    # 模型起的参数名要过别名映射才能查产品库
+    p = product.get(ALIAS.get(name, name))
 
     if item["verdict"] == "正偏离":
         body = render_product(p, name) if p else None
