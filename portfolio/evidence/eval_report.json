@@ -1,0 +1,14 @@
+{
+  "sample_size": 31,
+  "is_measurable": {
+    "correct": 31,
+    "total": 31,
+    "accuracy": 1.0
+  },
+  "operator": {
+    "correct": 29,
+    "total": 29,
+    "accuracy": 1.0
+  },
+  "errors": []
+}

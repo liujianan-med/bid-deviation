@@ -25,3 +25,20 @@ data/*.docx
 data/*.pdf
 data/uploads/
 data/api_test_download.docx
+
+# ===== 个人信息 / 客户数据，禁止提交 =====
+data/photo_3x4.jpg
+data/caoye.png
+# 微信抓取产物：含客户文件名与聊天来源，绝不外传
+data/wechat3x_*.tsv
+data/robocopy_wechat3x*.log
+# 真实检测报告 / 资质扫描件（含企业信息）
+data/cert_p*.png
+data/report280_p*.png
+data/report_pages/
+# 真实招标文件全文与判定结果
+data/sishi_tender_full.txt
+data/sishi_decisions.json
+
+# 个人照片
+data/photo*.png
